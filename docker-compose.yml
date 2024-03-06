@@ -3,7 +3,7 @@ services:
   front:
     image: nginx:latest
     volumes:
-      - ./path/to/your/local/directory:/path/to/container/directory
+      - ./front/nginx:/usr/share/nginx/html
     ports:
       - "80:80"
     networks:
@@ -11,7 +11,7 @@ services:
   back:
     image: nginx:latest
     volumes:
-      - ./path/to/your/local/directory:/path/to/container/directory
+      - ./back/app:/app
     ports:
       - "8080:80"
     networks:
@@ -22,7 +22,7 @@ services:
   db:
     image: postgres:latest
     volumes:
-      - ./path/to/your/local/directory:/var/lib/postgresql/data
+      - ./db/data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:

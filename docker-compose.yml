@@ -1,0 +1,36 @@
+version: '3'
+services:
+  front:
+    image: nginx:latest
+    volumes:
+      - ./path/to/your/local/directory:/path/to/container/directory
+    ports:
+      - "80:80"
+    networks:
+      - front-back
+  back:
+    image: nginx:latest
+    volumes:
+      - ./path/to/your/local/directory:/path/to/container/directory
+    ports:
+      - "8080:80"
+    networks:
+      - front-back
+      - back-db
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    volumes:
+      - ./path/to/your/local/directory:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: database
+    networks:
+      - back-db
+networks:
+  front-back:
+  back-db:
